@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Task } from '../types';
 
 interface AddTaskProps {
-  onAddTask: (task: Task) => void;
+  onAddTask: (task: { id: number; title: string; dueDate: string; completed: boolean }) => void;
 }
 
 const AddTask: React.FC<AddTaskProps> = ({ onAddTask }) => {
   const [title, setTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
 
-  const handleAddTask = () => {
-    const newTask: Task = {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newTask = {
       id: Date.now(),
       title,
       dueDate,
@@ -22,20 +22,22 @@ const AddTask: React.FC<AddTaskProps> = ({ onAddTask }) => {
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="Task Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <label htmlFor="dueDate">Due Date</label>
       <input
         type="date"
+        id="dueDate"
         value={dueDate}
         onChange={(e) => setDueDate(e.target.value)}
       />
-      <button onClick={handleAddTask}>Add Task</button>
-    </div>
+      <button type="submit">Add Task</button>
+    </form>
   );
 };
 

@@ -51,7 +51,7 @@ const App: React.FC = () => {
 
   return (
     <div className='container'>
-      <h1>Task Management Application</h1>
+      <h1>MiDev Task Management App</h1>
       {editingTask ? (
         <EditTask
           task={editingTask}
